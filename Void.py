@@ -121,6 +121,29 @@ async def ownerinfo(ctx):
     embed.set_footer(text="Copyright")
     embed.set_author(name=" Bot Owner Name -Zenzoy#6460 -ID:471988330335174667")
     await client.say(embed=embed)
+	
+	
+@client.command(pass_context = True)
+async def mute(ctx, member: discord.Member):
+     if ctx.message.author.server_permissions.mute_members:
+        role = discord.utils.get(member.server.roles, name='Muted')
+        await client.add_roles(member, role)
+        embed=discord.Embed(title="User Muted!", description="The ancient ones have Muted **{0}** #information, to see the rules!".format(member, ctx.message.author), color=0x6b009c)
+        await client.say(embed=embed)
+     else:
+        embed=discord.Embed(title="Permission Denied.", description="You don't have permission to use this command, Fool", color=0x6b009c)
+        await client.say(embed=embed)
+          
+@client.command(pass_context = True)
+async def unmute(ctx, member: discord.Member):
+     if ctx.message.author.server_permissions.mute_members:
+        role = discord.utils.get(member.server.roles, name='Muted')
+        await client.remove_roles(member, role)
+        embed=discord.Embed(title="User Unmuted!", description="The ancient ones have Unmuted **{0}** #information, to see the rules!".format(member, ctx.message.author), color=0x6b009c)
+        await client.say(embed=embed)
+     else:
+        embed=discord.Embed(title="Permission Denied.", description="You don't have permission to use this command, Fool", color=0x6b009c)
+        await client.say(embed=embed)
     
 @client.command(pass_context = True)
 @commands.has_permissions(manage_nicknames=True)     
