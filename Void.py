@@ -16,12 +16,7 @@ Forbidden= discord.Embed(title="Permission Denied", description="1) Please check
 client = Bot(description="I am The local Guard in Void Sector", command_prefix="V", pm_help = True)
 client.remove_command('help')
 
-async def status_task():
-    while True:
-        await client.change_presence(game=discord.Game(name="with Voids", type=1))
-        await asyncio.sleep(5)
-        await client.change_presence(game=discord.Game(name="with "+str(len(set(client.get_all_members())))+" Voids", type=1))
-        await asyncio.sleep(5)
+await client.change_presence(game=discord.Game(name="with "+str(len(set(client.get_all_members())))+" Voids", type=1))
 	
 @client.event
 async def on_ready():
@@ -29,8 +24,6 @@ async def on_ready():
     print('--------')
     print('--------')
     print('Created By Zenzoy')
-    client.loop.create_task(status_task())
-
 
 def is_owner(ctx):
     return ctx.message.author.id == "471988330335174667"
