@@ -47,7 +47,7 @@ async def on_member_join(member):
     embed.set_image(url = 'https://goo.gl/images/1T8Ce8')
     await client.send_message(member,embed=embed)
     print("Sent message to " + member.name)
-    channel = discord.utils.get(client.get_all_channels(), server__name='Void Flotilla', name='Welcome')
+    channel = discord.utils.get(client.get_all_channels(), server__name='Void Flotilla', name='#513758096498229249')
     embed = discord.Embed(title=f'Welcome {member.name} to {member.server.name}', description='Do not forget to check rules.', color = 0x5c0587)
     embed.add_field(name='Thanks for joining!', value='**Please be active here.**', inline=True)
     embed.add_field(name='Your join position is', value=member.joined_at)
