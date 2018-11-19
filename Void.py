@@ -42,7 +42,7 @@ async def on_message(message):
 async def on_member_join(member):
     print("In our server" + member.name + " just joined")
     embed = discord.Embed(color = 0x5c0587)
-    embed.set_author(name='Welcome message')
+    embed.set_author(name='Welcome to Void Flotilla')
     embed.add_field(name = 'Welcome to Our Server!',value ='**Please be active and read rules. ',inline = False)
     embed.set_image(url = 'https://i.imgur.com/F7Pc7x0.png')
     await client.send_message(member,embed=embed)
@@ -66,18 +66,6 @@ async def unbanall(ctx):
     for member in ban_list:
         await client.unban(server,member)
 	
-@client.command(pass_context = True)
-@commands.has_permissions(kick_members=True) 
-
-@commands.cooldown(rate=5,per=86400,type=BucketType.user) 
-async def access(ctx, member: discord.Member):
-    role = discord.utils.get(member.server.roles, name='Voids')
-    await client.add_roles(member, role)
-    embed=discord.Embed(title="User Got Access!", description="**{0}** got access from **{1}**!".format(member, ctx.message.author), color=0xff00f6)
-    await client.say(embed=embed)
-    await asyncio.sleep(45*60)
-    await client.remove_roles(member, role)
-	
 
 
 	
@@ -93,8 +81,7 @@ async def joinvoice(ctx):
 @client.command(pass_context = True)
 @commands.has_permissions(kick_members=True)     
 async def userinfo(ctx, user: discord.Member):
-    r, g, b = tuple(int(x * 255) for x in colorsys.hsv_to_rgb(random.random(), 1, 1))
-    embed = discord.Embed(title="{}'s info".format(user.name), description="Here's what I could find.", color = discord.Color((r << 16) + (g << 8) + b))
+    embed = discord.Embed(title="{}'s info".format(user.name), description="Here's what I could find.", color = 0x5c0587)
     embed.add_field(name="Name", value=user.name, inline=True)
     embed.add_field(name="ID", value=user.id, inline=True)
     embed.add_field(name="Status", value=user.status, inline=True)
@@ -130,7 +117,7 @@ async def warn(ctx, userName: discord.User, *, message:str):
 
 @client.command(pass_context=True)
 async def ownerinfo(ctx):
-    embed = discord.Embed(title="Information about owner", description="Bot Name- Void", color=0x00ff00)
+    embed = discord.Embed(title="Information about owner", description="Bot Name- Void", color=0x5c0587)
     embed.set_footer(text="Copyright")
     embed.set_author(name=" Bot Owner Name -Zenzoy#6460 -ID:471988330335174667")
     await client.say(embed=embed)
@@ -158,8 +145,7 @@ async def poll(ctx, question, *options: str):
         description = []
         for x, option in enumerate(options):
             description += '\n {} {}'.format(reactions[x], option)
-            r, g, b = tuple(int(x * 255) for x in colorsys.hsv_to_rgb(random.random(), 1, 1))
-        embed = discord.Embed(title=question, description=''.join(description), color = discord.Color((r << 16) + (g << 8) + b))
+        embed = discord.Embed(title=question, description=''.join(description), color = 0x5c0587)
         react_message = await client.say(embed=embed)
         for reaction in reactions[:len(options)]:
             await client.add_reaction(react_message, reaction)
@@ -170,8 +156,7 @@ async def poll(ctx, question, *options: str):
 @client.command(pass_context = True)
 async def help(ctx):
     author = ctx.message.author
-    r, g, b = tuple(int(x * 255) for x in colorsys.hsv_to_rgb(random.random(), 1, 1))
-    embed = discord.Embed(color = discord.Color((r << 16) + (g << 8) + b))
+    embed = discord.Embed(color = 0x5c0587)
     embed.set_author(name='Help')
     embed.set_image(url = 'https://image.ibb.co/caM2BK/help.gif')
     embed.add_field(name = 'Vguardhelp ',value ='Explaines all the commands which are only usable by Those who has moderation permissions. Like- Manage Nicknames, Manage Messages, Kick/Ban Members,etc.',inline = False)
@@ -182,8 +167,7 @@ async def help(ctx):
 @client.command(pass_context = True)
 async def guardhelp(ctx):
     author = ctx.message.author
-    r, g, b = tuple(int(x * 255) for x in colorsys.hsv_to_rgb(random.random(), 1, 1))
-    embed = discord.Embed(color = discord.Color((r << 16) + (g << 8) + b))
+    embed = discord.Embed(color = 0x5c0587)
     embed.set_author(name='Moderation Commands Help')
     embed.set_image(url = 'https://image.ibb.co/caM2BK/help.gif')
     embed.add_field(name = 'd!say(Admin permission required) ',value ='Use it like ``d!say <text>``',inline = False)
