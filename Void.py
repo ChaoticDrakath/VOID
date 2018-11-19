@@ -187,7 +187,7 @@ async def help(ctx):
     await client.say('📨 Check DMs For Information')
 
 @client.command(pass_context = True)
-async def voidhelp(ctx):
+async def guardhelp(ctx):
     author = ctx.message.author
     r, g, b = tuple(int(x * 255) for x in colorsys.hsv_to_rgb(random.random(), 1, 1))
     embed = discord.Embed(color = discord.Color((r << 16) + (g << 8) + b))
