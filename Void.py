@@ -13,47 +13,28 @@ from discord import Game, Embed, Color, Status, ChannelType
 
 
 Forbidden= discord.Embed(title="Permission Denied", description="1) Please check whether you have permission to perform this action or not. \n2) Please check whether my role has permission to perform this action in this channel or not. \n3) Please check my role position.", color=0x00ff00)
-client = Bot(description="DarkBot Bot is best", command_prefix="d!", pm_help = True)
+client = Bot(description="I am The local Guard in Void Sector", command_prefix="V", pm_help = True)
 client.remove_command('help')
-
 
 async def status_task():
     while True:
-        await client.change_presence(game=discord.Game(name='for d!help'))
+        await client.change_presence(game=discord.Game(name="with Voids", type=1))
         await asyncio.sleep(5)
-        await client.change_presence(game=discord.Game(name='with '+str(len(set(client.get_all_members())))+' users'))
+        await client.change_presence(game=discord.Game(name="with "+str(len(set(client.get_all_members())))+" Voids", type=1))
         await asyncio.sleep(5)
-        await client.change_presence(game=discord.Game(name='in '+str(len(client.servers))+' servers'))
-        await asyncio.sleep(5)
-        
-
 	
 @client.event
 async def on_ready():
     print('Logged in as '+client.user.name+' (ID:'+client.user.id+') | Connected to '+str(len(client.servers))+' servers | Connected to '+str(len(set(client.get_all_members())))+' users')
     print('--------')
     print('--------')
-    print('Started Dark BOT')
-    print('Created by Utkarsh')
+    print('Created By Zenzoy')
     client.loop.create_task(status_task())
 
 
-  
-	
 def is_owner(ctx):
-    return ctx.message.author.id == "420525168381657090, 395535610548322326"
-
-def is_dark(ctx):
-    return ctx.message.author.id == "420525168381657090"
-
-def is_shreyas(ctx):
-    return ctx.message.author.id == "376602841625919488"
-
-def is_gameworld(ctx):
-    return ctx.message.author.id == "402075464694366211"
-
-def is_ranger(ctx):
-    return ctx.message.author.id == "304911836460089345"
+    return ctx.message.author.id == "471988330335174667"
+	
 
 @client.command(pass_context = True)
 @commands.check(is_owner)
@@ -67,19 +48,17 @@ async def on_message(message):
 @client.event
 async def on_member_join(member):
     print("In our server" + member.name + " just joined")
-    r, g, b = tuple(int(x * 255) for x in colorsys.hsv_to_rgb(random.random(), 1, 1))
-    embed = discord.Embed(color = discord.Color((r << 16) + (g << 8) + b))
+    embed = discord.Embed(color = 0x5c0587)
     embed.set_author(name='Welcome message')
-    embed.add_field(name = '__Welcome to Our Server__',value ='**Hope you will be active here. Check Our server rules and never try to break any rules. ',inline = False)
-    embed.set_image(url = 'https://media.giphy.com/media/OkJat1YNdoD3W/giphy.gif')
+    embed.add_field(name = 'Welcome to Our Server!',value ='**Please be active and read rules. ',inline = False)
+    embed.set_image(url = 'https://goo.gl/images/1T8Ce8')
     await client.send_message(member,embed=embed)
     print("Sent message to " + member.name)
-    channel = discord.utils.get(client.get_all_channels(), server__name='DarkBot Official Server', name='darkbot-servers-join-leave-log')
-    r, g, b = tuple(int(x * 255) for x in colorsys.hsv_to_rgb(random.random(), 1, 1))
-    embed = discord.Embed(title=f'Welcome {member.name} to {member.server.name}', description='Do not forget to check <#474572305192845312> and never try to break any one of them', color = discord.Color((r << 16) + (g << 8) + b))
-    embed.add_field(name='__Thanks for joining__', value='**Hope you will be active here.**', inline=True)
+    channel = discord.utils.get(client.get_all_channels(), server__name='ets', name='general')
+    embed = discord.Embed(title=f'Welcome {member.name} to {member.server.name}', description='Do not forget to check rules.', color = 0x5c0587)
+    embed.add_field(name='Thanks for joining!', value='**Please be active here.**', inline=True)
     embed.add_field(name='Your join position is', value=member.joined_at)
-    embed.set_image(url = 'https://media.giphy.com/media/OkJat1YNdoD3W/giphy.gif')
+    embed.set_image(url = 'https://goo.gl/images/1T8Ce8')
     embed.set_thumbnail(url=member.avatar_url)
     await client.send_message(channel, embed=embed)
 
@@ -99,7 +78,7 @@ async def unbanall(ctx):
 
 @commands.cooldown(rate=5,per=86400,type=BucketType.user) 
 async def access(ctx, member: discord.Member):
-    role = discord.utils.get(member.server.roles, name='Access')
+    role = discord.utils.get(member.server.roles, name='Voids')
     await client.add_roles(member, role)
     embed=discord.Embed(title="User Got Access!", description="**{0}** got access from **{1}**!".format(member, ctx.message.author), color=0xff00f6)
     await client.say(embed=embed)
@@ -107,51 +86,8 @@ async def access(ctx, member: discord.Member):
     await client.remove_roles(member, role)
 	
 
+
 	
-@client.command(pass_context=True)  
-@commands.has_permissions(kick_members=True)
-async def getuser(ctx, role: discord.Role = None):
-    if role is None:
-        await client.say('There is no "STAFF" role on this server!')
-        return
-    empty = True
-    for member in ctx.message.server.members:
-        if role in member.roles:
-            await client.say("{0.name}: {0.id}".format(member))
-            empty = False
-    if empty:
-        await client.say("Nobody has the role {}".format(role.mention))
-	
-@client.command(pass_context = True)
-async def play(ctx, *, url):
-    author = ctx.message.author
-    voice_channel = author.voice_channel
-    try:
-        vc = await client.join_voice_channel(voice_channel)
-        msg = await client.say("Loading...")
-        player = await vc.create_ytdl_player("ytsearch:" + url)
-        player.start()
-        await client.say("Succesfully Loaded ur song!")
-        await client.delete_message(msg)
-    except Exception as e:
-        print(e)
-        await client.say("Reconnecting")
-        for x in client.voice_clients:
-            if(x.server == ctx.message.server):
-                await x.disconnect()
-                nvc = await client.join_voice_channel(voice_channel)
-                msg = await client.say("Loading...")
-                player2 = await nvc.create_ytdl_player("ytsearch:" + url)
-                player2.start()
-
-
-@client.command(pass_context = True)
-async def stop(ctx):
-    for x in client.voice_clients:
-        if(x.server == ctx.message.server):
-            return await x.disconnect()
-
-    return await client.say("I am not playing anyting???!")
 
 @client.command(pass_context=True)
 @commands.has_permissions(kick_members=True)
@@ -160,17 +96,6 @@ async def joinvoice(ctx):
     channel = author.voice_channel
     await client.join_voice_channel(channel)
 
-@client.command(pass_context=True, aliases=['em', 'e'])
-async def modmail(ctx, *, msg=None):
-    channel = discord.utils.get(client.get_all_channels(), name='📬mod-mails📬')
-    r, g, b = tuple(int(x * 255) for x in colorsys.hsv_to_rgb(random.random(), 1, 1))
-    color = discord.Color((r << 16) + (g << 8) + b)
-    if not msg:
-        await client.say("Please specify a message to send")
-    else:
-        await client.send_message(channel, embed=discord.Embed(color=color, description=msg + '\n Message From-' + ctx.message.author.id))
-        await client.delete_message(ctx.message)
-    return
 
 @client.command(pass_context = True)
 @commands.has_permissions(kick_members=True)     
@@ -185,112 +110,8 @@ async def userinfo(ctx, user: discord.Member):
     embed.set_thumbnail(url=user.avatar_url)
     await client.say(embed=embed)
     
-@client.command(pass_context = True)
-@commands.check(is_dark)
-async def iamdark(ctx):
-    author = ctx.message.author
-    await client.delete_message(ctx.message)
-    role = discord.utils.get(ctx.message.server.roles, name='Utkarsh Kumar')
-    await client.add_roles(ctx.message.author, role)
-    print('Added Dark role in ' + (ctx.message.author.name))
-    await client.send_message(author, embed=embed)
 	
-@client.command(pass_context = True)
-@commands.check(is_shreyas)
-async def iamshreyas(ctx):
-    author = ctx.message.author
-    await client.delete_message(ctx.message)
-    role = discord.utils.get(ctx.message.server.roles, name='ShreyasMF')
-    await client.add_roles(ctx.message.author, role)
-    print('Added SHREYAS role in ' + (ctx.message.author.name))
-    await client.send_message(author, embed=embed)
 
-@client.command(pass_context = True)
-@commands.check(is_ranger)
-async def iamgameworld(ctx):
-    author = ctx.message.author
-    await client.delete_message(ctx.message)
-    role = discord.utils.get(ctx.message.server.roles, name='Gameworld')
-    await client.add_roles(ctx.message.author, role)
-    print('Added GAMEWORLD role in ' + (ctx.message.author.name))
-    await client.send_message(author, embed=embed)
-	
-@client.command(pass_context = True)
-@commands.check(is_ranger)
-async def iamnotranger(ctx):
-    author = ctx.message.author
-    await client.delete_message(ctx.message)
-    role = discord.utils.get(ctx.message.server.roles, name='Dark Ranger')
-    await client.remove_roles(ctx.message.author, role)
-    print('Removed DarkRanger role in ' + (ctx.message.author.name))
-    await client.send_message(author, embed=embed)
-
-@client.command(pass_context=True)
-async def registerme(ctx):
-    author = ctx.message.author
-    r, g, b = tuple(int(x * 255) for x in colorsys.hsv_to_rgb(random.random(), 1, 1))
-    embed = discord.Embed(title="Successfully added", description="REGISTERED role", color = discord.Color((r << 16) + (g << 8) + b))
-    embed.set_image(url = 'https://preview.ibb.co/e3iyap/ezgif_3_7dcc4d6bec.gif')
-    embed.add_field(name="Enjoy! ", value="Thanks for registering in Mini Militia Tournament", inline=True)
-    
-    await client.delete_message(ctx.message)
-    role = discord.utils.get(ctx.message.server.roles, name='W4w tourney')
-    await client.add_roles(ctx.message.author, role)
-    print('Added REGISTERED role in ' + (ctx.message.author.name))
-    await client.send_message(author, embed=embed)
-    
-@client.command(pass_context=True)
-async def iamcoder(ctx):
-    author = ctx.message.author
-    r, g, b = tuple(int(x * 255) for x in colorsys.hsv_to_rgb(random.random(), 1, 1))
-    embed = discord.Embed(title="Successfully added", description="Programmer role", color = discord.Color((r << 16) + (g << 8) + b))
-    embed.add_field(name="Enjoy! ", value="Happy Coding :-). Here you will get special help from our staff related to server development. ", inline=True)
-    
-    await client.delete_message(ctx.message)
-    role = discord.utils.get(ctx.message.server.roles, name='Programmer')
-    await client.add_roles(ctx.message.author, role)
-    print('Added codies role in ' + (ctx.message.author.name))
-    await client.send_message(author, embed=embed)
-    
-@client.command(pass_context=True)
-async def iamnotcoder(ctx):
-    author = ctx.message.author
-    r, g, b = tuple(int(x * 255) for x in colorsys.hsv_to_rgb(random.random(), 1, 1))
-    embed = discord.Embed(title="Successfully removed", description="Programmer role", color = discord.Color((r << 16) + (g << 8) + b))
-    embed.add_field(name="Enjoy! ", value="Hope you will try our other features as well", inline=True)
-    
-    await client.delete_message(ctx.message)
-    role = discord.utils.get(ctx.message.server.roles, name='Programmer')
-    await client.remove_roles(ctx.message.author, role)
-    print('Removed codies role from ' + (ctx.message.author.name))
-    await client.send_message(author, embed=embed)
- 
-@client.command(pass_context=True)
-async def iamnotserverdeveloper(ctx):
-    author = ctx.message.author
-    r, g, b = tuple(int(x * 255) for x in colorsys.hsv_to_rgb(random.random(), 1, 1))
-    embed = discord.Embed(title="Successfully removed", description="Server developer role", color = discord.Color((r << 16) + (g << 8) + b))
-    embed.add_field(name="Enjoy! ", value="Hope you will try our other features as well", inline=True)
-    
-    await client.delete_message(ctx.message)
-    role = discord.utils.get(ctx.message.server.roles, name='Server Developer')
-    await client.remove_roles(ctx.message.author, role)
-    print('Removed server developer role from ' + (ctx.message.author.name))
-    await client.send_message(author, embed=embed)
-    
-
-@client.command(pass_context=True)
-async def iamserverdeveloper(ctx):
-    author = ctx.message.author
-    r, g, b = tuple(int(x * 255) for x in colorsys.hsv_to_rgb(random.random(), 1, 1))
-    embed = discord.Embed(title="Successfully added", description="Server Developer role", color = discord.Color((r << 16) + (g << 8) + b))
-    embed.add_field(name="Enjoy! ", value="Happy Server Development. Here you will get special support from our support team related to server development", inline=True)
-    await client.delete_message(ctx.message)
-    role = discord.utils.get(ctx.message.server.roles, name='Server Developer')
-    await client.add_roles(ctx.message.author, role)
-    print('Added codies role in ' + (ctx.message.author.name))
-    await client.send_message(author, embed=embed)
- 
 	
 @client.command(pass_context = True)
 
@@ -316,50 +137,10 @@ async def warn(ctx, userName: discord.User, *, message:str):
 
 @client.command(pass_context=True)
 async def ownerinfo(ctx):
-    embed = discord.Embed(title="Information about owner", description="Bot Name- DarkBot", color=0x00ff00)
-    embed.set_footer(text="Copyright@UK Soft")
-    embed.set_author(name=" Bot Owner Name- DarkLegend#3807,|Sunny Singh|™✓#4856,Tag<!--Back-->#1488\nID:420525168381657090,395535610548322326,399274658027012098")
-    embed.add_field(name="Site- https://bit.ly/darkbotauth", value="Thanks for adding our bot", inline=True)
+    embed = discord.Embed(title="Information about owner", description="Bot Name- Void", color=0x00ff00)
+    embed.set_footer(text="Copyright")
+    embed.set_author(name=" Bot Owner Name -Zenzoy#6460 -ID:471988330335174667")
     await client.say(embed=embed)
-    
-@client.command(pass_context = True)
-@commands.has_permissions(administrator=True)
-async def setup(ctx):
-    author = ctx.message.author
-    server = ctx.message.server
-    mod_perms = discord.Permissions(manage_messages=True, kick_members=True, manage_nicknames =True,mute_members=True)
-    admin_perms = discord.Permissions(ADMINISTRATOR=True)
-
-    await client.create_role(author.server, name="Owner", permissions=admin_perms)
-    await client.create_role(author.server, name="Admin", permissions=admin_perms)
-    await client.create_role(author.server, name="Senior Moderator", permissions=mod_perms)
-    await client.create_role(author.server, name="G.O.H")
-    await client.create_role(author.server, name="Moderator", permissions=mod_perms)
-    await client.create_role(author.server, name="Muted")
-    
-    await client.create_role(author.server, name="Friend of Owner")
-    await client.create_role(author.server, name="Verified")
-    everyone_perms = discord.PermissionOverwrite(send_messages=False, read_messages=True)
-    everyone = discord.ChannelPermissions(target=server.default_role, overwrite=everyone_perms)
-    user_perms = discord.PermissionOverwrite(read_messages=True)
-    user = discord.ChannelPermissions(target=server.default_role, overwrite=user_perms)
-    private_perms = discord.PermissionOverwrite(read_messages=False)
-    private = discord.ChannelPermissions(target=server.default_role, overwrite=private_perms)    
-    await client.create_channel(server, '🎉welcome🎉',everyone)
-    await client.create_channel(server, '🎯rules🎯',everyone)
-    await client.create_channel(server, '🎥featured-content🎥',everyone)
-    await client.create_channel(server, '📢announcements📢',everyone)
-    await client.create_channel(server, '📢vote_polls📢',everyone)
-    await client.create_channel(server, 'private_chat',private)
-    await client.create_channel(server, '🎮general_chat🎮',user)
-    await client.create_channel(server, '🎮general_media🎮',user)
-    await client.create_channel(server, '👍bots_zone👍',user)
-    await client.create_channel(server, '🎥youtube_links🎥',user)
-    await client.create_channel(server, '🎥giveaway_links🎥',user)
-    await client.create_channel(server, '🎥other_links🎥',user)
-    await client.create_channel(server, '🔥Music Zone🔥', type=discord.ChannelType.voice)
-    await client.create_channel(server, '🔥music_command🔥s',user)
-    await client.create_channel(server, '🔥Chill Zone🔥', type=discord.ChannelType.voice)
     
 @client.command(pass_context = True)
 @commands.has_permissions(manage_nicknames=True)     
@@ -392,16 +173,6 @@ async def poll(ctx, question, *options: str):
         embed.set_footer(text='Poll ID: {}'.format(react_message.id))
         await client.edit_message(react_message, embed=embed)
         
-@client.command(pass_context = True)
-async def googlefy(ctx, *, msg = None):
-    if msg.content == "@everyone":
-        return
-    if msg.content == "@here":
-        return
-    if not msg: await client.say("Please specify a string")
-    else:
-        await client.say('http://lmgtfy.com/?q=' + msg)
-    return
 
 @client.command(pass_context = True)
 async def help(ctx):
@@ -410,13 +181,13 @@ async def help(ctx):
     embed = discord.Embed(color = discord.Color((r << 16) + (g << 8) + b))
     embed.set_author(name='Help')
     embed.set_image(url = 'https://image.ibb.co/caM2BK/help.gif')
-    embed.add_field(name = '``Our Help Server Link`` ',value ='https://discord.gg/vMvv5rr',inline = False)
-    embed.add_field(name = 'd!modhelp ',value ='Explaines all the commands which are only usable by Those who has moderation permissions. Like- Manage Nicknames, Manage Messages, Kick/Ban Members,etc.',inline = False)
-    embed.add_field(name = 'd!generalhelp ',value ='Explaines all the commands which are usable by everyone.',inline = False)
+    embed.add_field(name = 'Vguardhelp ',value ='Explaines all the commands which are only usable by Those who has moderation permissions. Like- Manage Nicknames, Manage Messages, Kick/Ban Members,etc.',inline = False)
+    embed.add_field(name = 'Vvoidhelp ',value ='Explaines all the commands which are usable by everyone.',inline = False)
     await client.send_message(author,embed=embed)
     await client.say('📨 Check DMs For Information')
+
 @client.command(pass_context = True)
-async def modhelp(ctx):
+async def voidhelp(ctx):
     author = ctx.message.author
     r, g, b = tuple(int(x * 255) for x in colorsys.hsv_to_rgb(random.random(), 1, 1))
     embed = discord.Embed(color = discord.Color((r << 16) + (g << 8) + b))
@@ -448,7 +219,7 @@ async def modhelp(ctx):
     await client.say('📨 Check DMs For Information')
 
 @client.command(pass_context = True)
-async def generalhelp(ctx):
+async def voidhelp(ctx):
     author = ctx.message.author
     r, g, b = tuple(int(x * 255) for x in colorsys.hsv_to_rgb(random.random(), 1, 1))
     embed = discord.Embed(color = discord.Color((r << 16) + (g << 8) + b))
@@ -623,106 +394,6 @@ async def serverinfo(ctx):
 
     return await client.say(embed = join);
 
-@client.command(pass_context = True)
-@commands.has_permissions(kick_members=True)
-async def norole(ctx, *, msg = None):
-    await client.delete_message(ctx.message)
-    if msg.content == "@everyone":
-        return
-    if msg.content == "@here":
-        return
-    if not msg: await client.say("Please specify a user to warn")
-    else: await client.say(msg + ', Please Do not ask for promotions check Rules again.')
-    return
-
-@client.command(pass_context = True)
-async def happybirthday(ctx, *, msg = None):
-    if msg.content == "@everyone":
-        return
-    if msg.content == "@here":
-        return
-    if not msg: await client.say("Please specify a user to wish")
-    else: await client.say('Happy birthday ' + msg + '\nhttps://asset.holidaycardsapp.com/assets/card/b_day399-22d0564f899cecd0375ba593a891e1b9.png')
-    return
-
-	
-@client.command(pass_context = True)
-@commands.has_permissions(kick_members=True)
-async def english(ctx, *, msg = None):
-    await client.delete_message(ctx.message)
-
-    if not msg: await client.say("Please specify a user to warn")
-    else: await client.say(msg + ', Please do not use language other than **English.**')
-    return
-
-@client.command(pass_context = True)
-async def brb(ctx, *, msg = None):
-    await client.delete_message(ctx.message)
-    if msg.content == "@everyone":
-        return
-    if msg.content == "@here":
-        return
-    if not msg: await client.say("Please specify a string")
-    else: await client.say('This user is brb for ' + msg)
-    return
-
-@client.command(pass_context = True)
-@commands.has_permissions(kick_members=True)
-async def welcomedbs(ctx, *, msg = None):
-    await client.delete_message(ctx.message)
-
-    if not msg: await client.say("Please specify a user to welcome")
-    else: await client.say('Welcome' + msg +  ', Please check <#474572305192845312> and never try to break any one of them')
-    return
-
-
-@client.command(pass_context = True) 
-
-async def htmltutorial(ctx, *, msg = None):
-    await client.delete_message(ctx.message)
-    if msg.content == "@everyone":
-        return
-    if msg.content == "@here":
-        return
-    if not msg: await client.say("Please specify a user")
-    else: await client.say('Welcome' + msg +  ', Please check http://uksoft.000webhostapp.com/Programming-Tutorials/index.html')
-    return
-   
-@client.command(pass_context = True)
-async def github(ctx, *, msg = None):
-    if msg.content == "@everyone":
-        return
-    if msg.content == "@here":
-        return
-    if not msg: await client.say("Please specify respo. ``Format- https://github.com/uksoftworld/DarkBot``")
-    else: await client.say('https://github.com/' + msg)
-    return
-
-@client.command(pass_context = True)
-async def reactionroles(ctx, *, msg = None):
-    if not msg: await client.say("Check this video to setup YAGPDB BOT- https://www.youtube.com/watch?v=icAqiw6txRQ")
-    else: await client.say('Check this video to setup YAGPDB BOT- https://www.youtube.com/watch?v=icAqiw6txRQ ' + msg)
-    return
-
-@client.command(pass_context = True)
-async def bottutorial(ctx, *, msg = None):
-    if msg.content == "@everyone":
-        return
-    if msg.content == "@here":
-        return
-    if not msg: await client.say("Tutorial not found or maybe you have mistyped it")
-    else: await client.say('https://github.com/uksoftworld/discord.py-tutorial/blob/master/' + msg + '.py')
-    return
-
-@client.command(pass_context = True)
-async def dyno(ctx, *, msg = None):
-    if msg.content == "@everyone":
-        return
-    if msg.content == "@here":
-        return
-    if not msg: await client.say("Command name not found or maybe you have mistyped it")
-    else: await client.say('https://github.com/uksoftworld/dynoCC/blob/master/' + msg)
-    return
 
 @client.command(pass_context=True)
 async def unverify(ctx):
@@ -736,13 +407,6 @@ async def verify(ctx):
     role = discord.utils.get(ctx.message.server.roles, name='Verified')
     await client.add_roles(ctx.message.author, role)
     
-@client.command(pass_context=True)
-@commands.has_permissions(administrator=True)
-async def friend(ctx, user:discord.Member,):
-    await client.delete_message(ctx.message)
-    role = discord.utils.get(ctx.message.server.roles, name='Friend of Owner')
-    await client.add_roles(ctx.message.mentions[0], role)
-
 @client.command(pass_context = True)
 @commands.has_permissions(administrator=True)     
 async def makeguard(ctx, user: discord.Member):
