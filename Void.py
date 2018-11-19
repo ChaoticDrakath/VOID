@@ -23,7 +23,7 @@ async def on_ready():
     print('--------')
     print('--------')
     print('Created By Zenzoy')
-    await client.change_presence(game=discord.Game(name="with "+str(len(set(client.get_all_members())))+" Voids", type=1))
+    await client.change_presence(game=discord.Game(name="工𠘨  リ口工刀  丂乇匚丅口尺", type=1))
 
 def is_owner(ctx):
     return ctx.message.author.id == "471988330335174667"
