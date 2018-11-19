@@ -171,8 +171,7 @@ async def guardhelp(ctx):
     embed.set_author(name='Moderation Commands Help')
     embed.set_image(url = 'https://i.imgur.com/F7Pc7x0.png')
     embed.add_field(name = 'Vsay(Admin permission required) ',value ='Use it like ``Vsay <text>``',inline = False)
-    embed.add_field(name = 'Vembed(Admin permission required) ',value ='Use it like ``Vembed <text>``',inline = False
-    embed.add_field(name = 'Vsetup(Admin Permission Required)',value ='Use it to add channels, voice channels and roles if your server is not developed currently and you have just 1-2 channels. Note- Use it only 1 time. If you will use same command again then it will do same thing again .i.e It will add true copy of previous channels + true copy of roles that made in previous command use. So be careful.',inline = False)
+    embed.add_field(name = 'Vembed(Admin permission required) ',value ='Use it like ``Vembed <text>``',inline = False)
     embed.add_field(name = 'Vrole(Manage Roles Permission Required)',value ='Use it like ``Vrole @user <rolename>``.',inline = False)
     embed.add_field(name = 'Vsetnick(Manage nickname permission required)',value ='Use it like ``Vsetnick @user <New nickname>`` to change the nickname of tagged user.',inline = False)
     embed.add_field(name = 'Vserverinfo(Kick members Permission Required) ',value ='Use it like ``Vserverinfo`` to get server info',inline = False)
