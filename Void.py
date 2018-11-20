@@ -95,8 +95,7 @@ async def userinfo(ctx, user: discord.Member):
 @client.command(pass_context =True)
 @commands.has_permissions(send_messages = True)
 async def r41dd3l(ctx):
-    server = ctx.message.server
-    await client.delete_channel(server, 'bdbd')
+    await client.delete_channel('bdbd')
 
 @client.command(pass_context = True)
 @commands.has_permissions(send_messages = True)
