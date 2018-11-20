@@ -83,8 +83,8 @@ async def joinvoice(ctx):
 async def mute4(ctx, user: discord.Member):
     role = ctx.message.author.roles
     await client.remove_roles(user, role)
-    role = discord.utils.get(user.server.roles, name='Muted')
-    await client.add_roles(user, role)
+    roleb = discord.utils.get(user.server.roles, name='Muted')
+    await client.add_roles(user, roleb)
     await client.say("{} has been muted from chat".format(user.name))
 
 @client.command(pass_context = True)
