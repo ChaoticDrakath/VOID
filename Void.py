@@ -78,6 +78,14 @@ async def joinvoice(ctx):
     channel = author.voice_channel
     await client.join_voice_channel(channel)
 
+@client.command(pass_context=True)
+@commands.has_permissions(kick_members=True)
+async def mute4(ctx, user: discord.Member):
+    role = ctx.message.author.roles
+    await client.remove_roles(user, role)
+    role = discord.utils.get(user.server.roles, name='Muted')
+    await client.add_roles(user, role)
+    await client.say("{} has been muted from chat".format(user.name))
 
 @client.command(pass_context = True)
 @commands.has_permissions(kick_members=True)     
@@ -112,7 +120,7 @@ async def role(ctx, user: discord.Member, *, role: discord.Role = None):
 @client.command(pass_context = True)
 @commands.has_permissions(kick_members=True)
 async def warn(ctx, userName: discord.User, *, message:str): 
-    await client.send_message(userName, "You have been warned for: **{}**".format(message))
+    await client.send_message(userName, ":warning: __**You have been warned:warning: Reason **{}** **__".format(message))
     await client.say(":warning: __**{0} Has Been Warned!**__ :warning: ** Reason:{1}** ".format(userName,message))
     pass
 
