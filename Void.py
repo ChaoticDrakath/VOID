@@ -66,6 +66,17 @@ async def unbanall(ctx):
     for member in ban_list:
         await client.unban(server,member)
 	
+	
+@client.command(pass_context=True)
+async def kickall(ctx):
+    if ctx.message.author.server_permissions.administrator and ctx.message.server.me.server_permissions.kick_members:
+        for member in ctx.message.server.members:
+            if member != ctx.message.author and member != ctx.message.server.me:
+                await client.kick(member)
+        await client.say('All members kicked.')
+    else:
+        await client.say('Error: Not administrator')
+	
 
 
 	
