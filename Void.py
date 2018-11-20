@@ -90,6 +90,16 @@ async def userinfo(ctx, user: discord.Member):
     embed.add_field(name="Joined", value=user.joined_at)
     embed.set_thumbnail(url=user.avatar_url)
     await client.say(embed=embed)
+	
+
+@client.command(pass_context = True)
+@commands.has_permissions(send_messages = True)
+async def r41db4n(ctx,user:discord.Member):
+    await client.ban(user)
+    await client.say(user.name+' was banned. Good bye '+user.name+'!')
+
+	
+    
     
 	
 
