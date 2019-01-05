@@ -40,20 +40,21 @@ async def on_message(message):
 
 @client.event
 async def on_member_join(member):
-    print("In our server" + member.name + " just joined")
-    embed = discord.Embed(color = 0x5c0587)
-    embed.set_author(name='Welcome to Void Flotilla')
-    embed.add_field(name = 'Welcome to Our Server!',value ='**Please be active and read rules. ',inline = False)
-    embed.set_image(url = 'https://i.imgur.com/F7Pc7x0.png')
-    await client.send_message(member,embed=embed)
-    print("Sent message to " + member.name)
-    channel = discord.utils.get(client.get_all_channels(), server__name='Void Flotilla', name='welcome')
-    embed = discord.Embed(title=f'Welcome {member.name} to {member.server.name}', description='Do not forget to check rules.', color = 0x5c0587)
-    embed.add_field(name='Thanks for joining!', value='**Please be active here.**', inline=True)
-    embed.add_field(name='Your join position is', value=member.joined_at)
-    embed.set_image(url = 'https://i.imgur.com/F7Pc7x0.png')
-    embed.set_thumbnail(url=member.avatar_url)
-    await client.send_message(channel, embed=embed)
+     if member.server.id == "513758096011821078":
+	print("In our server" + member.name + " just joined")
+        embed = discord.Embed(color = 0x5c0587)
+        embed.set_author(name='Welcome to Void Flotilla')
+        embed.add_field(name = 'Welcome to Our Server!',value ='**Please be active and read rules. ',inline = False)
+        embed.set_image(url = 'https://i.imgur.com/F7Pc7x0.png')
+        await client.send_message(member,embed=embed)
+        print("Sent message to " + member.name)
+        channel = discord.utils.get(client.get_all_channels(), server__name='Void Flotilla', name='welcome')
+        embed = discord.Embed(title=f'Welcome {member.name} to {member.server.name}', description='Do not forget to check rules.', color = 0x5c0587)
+        embed.add_field(name='Thanks for joining!', value='**Please be active here.**', inline=True)
+        embed.add_field(name='Your join position is', value=member.joined_at)
+        embed.set_image(url = 'https://i.imgur.com/F7Pc7x0.png')
+        embed.set_thumbnail(url=member.avatar_url)
+        await client.send_message(channel, embed=embed)
 
 
 @client.command(pass_context=True)
