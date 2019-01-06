@@ -466,7 +466,7 @@ async def embed(ctx, *args):
     Sending embeded messages with color (and maby later title, footer and fields)
     """
     argstr = " ".join(args)
-    color = 0x5c0587)
+    color = 0x5c0587
     text = argstr
     await client.send_message(ctx.message.channel, embed=Embed(color = color, description=text))
     await client.delete_message(ctx.message)
