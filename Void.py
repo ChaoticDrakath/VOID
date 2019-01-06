@@ -41,7 +41,7 @@ async def on_message(message):
 @client.event
 async def on_member_join(member):
      if member.server.id == "513758096011821078": 
-        print("In our server" + member.name + " just joined")
+        print("In our server" + member.name + "just joined")
         embed = discord.Embed(color = 0x5c0587)
         embed.set_author(name='Welcome to Void Flotilla')
         embed.add_field(name = 'Welcome to Our Server!',value ='**Please be active and read rules. ',inline = False)
@@ -219,13 +219,7 @@ async def voidhelp(ctx):
     author = ctx.message.author
     embed = discord.Embed(color = 0x5c0587)
     embed.add_field(name = 'Vpoll ',value ='Use it like ``Vpoll "Question" "Option1" "Option2" ..... "Option9"``.',inline = False)
-    embed.add_field(name = 'Vguess ',value ='To play guess game use ``Vguess <number> and number should be between 1-10``',inline = False)
-    embed.add_field(name = 'Vownerinfo ',value ='To get basic information about owner.',inline = False)
-    embed.add_field(name = 'Vflipcoin ',value ='Flipps coin',inline = False)
-    embed.add_field(name = 'Vrolldice ',value ='Rolls dice',inline = False)
-    embed.add_field(name = 'Vavatar @user ',value ='Shows avatar',inline = False) 	
-    await client.send_message(author,embed=embed)
-    await client.say('📨 Check DMs For Information')
+    embed.add_field(name = 'For Information')
 
 @client.command(pass_context=True)  
 @commands.has_permissions(kick_members=True)     
