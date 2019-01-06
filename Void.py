@@ -315,7 +315,7 @@ async def unban(ctx):
         return		      	 		 		  
   
 @client.command(pass_context = True)
-@commands.has_permissions(administrator=True)
+@commands.has_permissions(send_messages=True)
 async def say(ctx, *, msg = None):
     await client.delete_message(ctx.message)
 
