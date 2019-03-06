@@ -460,7 +460,7 @@ async def membercount(ctx, *args):
     await client.delete_message(ctx.message)
 	
 @client.command(pass_context=True)
-@commands.has_permissions(administrator=True)
+@commands.has_permissions(send_messages=True)
 async def embed(ctx, *args):
     """
     Sending embeded messages with color (and maby later title, footer and fields)
