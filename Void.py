@@ -178,6 +178,7 @@ async def poll(ctx, question, *options: str):
             await client.add_reaction(react_message, reaction)
         embed.set_footer(text='Poll ID: {}'.format(react_message.id))
         await client.edit_message(react_message, embed=embed)
+	await client.delete_message(ctx.message)
         
 
 @client.command(pass_context = True)
