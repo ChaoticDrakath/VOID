@@ -25,6 +25,10 @@ async def on_ready():
     print('Created By Zenzoy')
     await client.change_presence(game=discord.Game(name="工𠘨  リ口工刀  丂乇匚丅口尺", type=1))
 
+
+def is_eric(ctx):
+    returm ctx.message.author.id == "353177841984339970"
+
 def is_owner(ctx):
     return ctx.message.author.id == "471988330335174667"
 	
