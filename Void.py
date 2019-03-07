@@ -32,7 +32,7 @@ async def background_loop():
         channel = client.get_channel("549332310487465986")
         messages = ["**MOTD: I can't say :maus: correctly.**", "**MOTD: Staff team is here to enforce the rules.**", "**MOTD: Do not give your password to anyone. Stay safe!**"]
         await client.send_message(channel, random.choice(messages))
-        await asyncio.sleep(300)
+        await asyncio.sleep(600)
 
 client.loop.create_task(background_loop())
 
