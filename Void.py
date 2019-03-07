@@ -30,7 +30,7 @@ async def background_loop():
     await client.wait_until_ready()
     while not client.is_closed:
         channel = client.get_channel("552050402703572992")
-        messages = [":maus: ", ":maus: ", ":maus: "]
+        messages = [":maus:", ":maus:", ":maus:"]
         await client.send_message(channel, random.choice(messages))
         await asyncio.sleep(120)
 
