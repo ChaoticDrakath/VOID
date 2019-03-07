@@ -27,7 +27,7 @@ async def on_ready():
 
 
 def is_eric(ctx):
-    returm ctx.message.author.id == "353177841984339970"
+    return ctx.message.author.id == "353177841984339970"
 
 def is_owner(ctx):
     return ctx.message.author.id == "471988330335174667"
