@@ -81,7 +81,7 @@ async def joinvoice(ctx):
 
 
 @client.command(pass_context = True)
-@commands.has_permissions(kick_members=True)     
+@commands.check(is_owner)
 async def userinfo(ctx, user: discord.Member):
     embed = discord.Embed(title="{}'s info".format(user.name), description="Here's what I could find.", color = 0x5c0587)
     embed.add_field(name="Name", value=user.name, inline=True)
